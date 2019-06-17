@@ -1,29 +1,8 @@
-import {GET_MYWALL_REQUEST,GET_MYWALL_SUCCESS,GET_MYWALL_FAIL,
-        SET_MYWALL_REQUEST,SET_MYWALL_SUCCESS,SET_MYWALL_FAIL,
+import {SET_MYWALL_REQUEST,SET_MYWALL_SUCCESS,SET_MYWALL_FAIL,
         LIKE_ADD_REQUEST,LIKE_ADD_SUCCESS,LIKE_ADD_FAIL,
         DELETE_SHARE_REQUEST,DELETE_SHARE_SUCCESS,DELETE_SHARE_FAIL} from "./actionTypes";
 
-const getRequest = () => ({
-    type : GET_MYWALL_REQUEST 
-});
 
-const getSuccess = data => ({
-    type : GET_MYWALL_SUCCESS,
-    myWall : Object.entries(data)
-});
-
-const getFail = () => ({
-    type : GET_MYWALL_FAIL,
-});
-
-export const getMyWall = (uid) => (dispatch,getState,{getFirebase,getFirestore})=>{
-    dispatch(getRequest());
-    const fs = getFirestore();
-    
-    fs.collection("myWall").doc(uid).get()
-    .then(snapshot => dispatch(getSuccess(snapshot.data())))
-    .catch(err=>dispatch(getFail()));
-};
 const setRequest = () => ({
     type : SET_MYWALL_REQUEST 
 });

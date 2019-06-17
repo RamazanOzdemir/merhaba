@@ -36,7 +36,6 @@ const cancelFail = () => ({
 });
 
 export const cancelFriends = (my,friend)=>((dispatch,getState,{getFirebase,getFirestore})=>{
-    console.log(my)
     const fb = getFirebase();
     const firestore = getFirestore();
     dispatch(cancelRequest());

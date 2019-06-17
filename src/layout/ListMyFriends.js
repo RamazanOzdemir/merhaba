@@ -7,7 +7,7 @@ function ListMyFriends(props) {
     <div>
         <ul className="collection with-header">          
             <li className="collection-header"><h6>Arkadaslarım : </h6></li>
-            { myFriends?
+            { myFriends.length>0?
               myFriends.map(friend=>(
               friend?
               <li className="collection-item" key={friend[0]+"list-item"}>

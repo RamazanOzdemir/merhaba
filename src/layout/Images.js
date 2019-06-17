@@ -40,7 +40,7 @@ class Images extends Component {
            />
         </div>
         <div className="card-action"style={{display:"flex",justifyContent: "space-between"}} >
-          <Link to="/myPage" className="btn" onClick={this.share.bind(this,image)} ><i className="material-icons">share</i></Link>
+          <Link to="/" className="btn" onClick={this.share.bind(this,image)} ><i className="material-icons">share</i></Link>
           <button className="btn" onClick={this.delete.bind(this,image)}><i className="material-icons">delete</i></button>
         </div>
       </div>

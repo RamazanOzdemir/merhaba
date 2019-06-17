@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import "materialize-css";
 import M from "materialize-css";
 import {connect} from "react-redux";
-import {setProfile, getProfile} from "../store/actions";
+import {setProfile} from "../store/actions";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import {Redirect} from "react-router-dom"
 class SetProfile extends Component {
     state={
-        firstName : "",
-        lastName : "",
-        birthday : "",
-        job : "",
-        country : "",
-        relationship : "",
-        gender : "",
+        firstName : " ",
+        lastName : " ",
+        birthday : " ",
+        job : " ",
+        country : " ",
+        relationship : " ",
+        gender : " ",
         
     }
-    handleChange = e =>{
+    handleChange = (e) =>{
         this.setState({
           [e.target.id] : e.target.value
         });
@@ -31,9 +31,9 @@ class SetProfile extends Component {
     }
     handleSubmit = (e)=>{
         e.preventDefault();
-        const {auth,setProfile} = this.props;
-        setProfile(auth.uid,this.state);
-        this.props.history.push("/myPage")
+        const {uid,setProfile} = this.props;
+        setProfile(uid,this.state);
+        this.props.history.push("/")
       
     }
     componentWillMount = ()=>{
@@ -49,7 +49,24 @@ class SetProfile extends Component {
             gender : profile.gender,
         }));
     }
-
+    componentWillReceiveProps = (newProps)=>{
+        
+        if(this.props.profile!==newProps.profile){
+            const {profile} = newProps;
+            this.setState(()=>({
+                firstName : profile.firstName,
+                lastName : profile.lastName,
+                birthday : profile.birthday,
+                job : profile.job,
+                country : profile.country,
+                relationship : profile.relationship,
+                gender : profile.gender,
+            }));
+            M.updateTextFields();
+            
+        }
+        
+     }
     componentDidMount = () =>{
         M.updateTextFields();
        
@@ -75,7 +92,7 @@ class SetProfile extends Component {
             <div className="row" >
                 <div className="input-field col s10 l6 ">
                     <i className="material-icons prefix">create</i>
-                    <label className="active" htmlFor="firstName">Adınız</label>
+                    <label  htmlFor="firstName">Adınız</label>
                     <input type="text" id="firstName" className="validate" value={firstName} onChange={this.handleChange} />
                 </div>
                 <div className="input-field col s10 l6 ">
@@ -126,7 +143,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setProfile : (uid,profile) => dispatch(setProfile(uid,profile)),
-    getProfile : uid => dispatch(getProfile(uid))
 });
 export default compose (
     connect(mapStateToProps,mapDispatchToProps),

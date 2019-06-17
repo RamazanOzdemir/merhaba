@@ -5,18 +5,14 @@ import {getFirestore,reduxFirestore, firestoreReducer} from "redux-firestore";
 import fbConfig from "../config/fbConfig";
 import signupReducer from "./reducers/signupReducer";
 import authReducer from "./reducers/authReducer";
-import profileReducer from "./reducers/profileReducer";
 import imagesReducer from "./reducers/imagesReducer";
-import friendsReducer from "./reducers/friendsReducer";
 import wallReducer from "./reducers/wallReducer";
 const rootReducer = combineReducers({
     firebase : firebaseReducer,
     firestore : firestoreReducer,
     signup : signupReducer,
     login : authReducer,
-    profile : profileReducer,
     images : imagesReducer,
-    friends : friendsReducer,
     wall : wallReducer
 });
 

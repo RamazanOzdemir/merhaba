@@ -16,7 +16,9 @@ import MyPage from './pages/MyPage';
 import UploadImg from './pages/UploadImg';
 import FriendPage from "./friend/FriendPage"
 import SearchPage from './pages/SearchPage';
+import EmailPage from './pages/EmailPage';
 import MyFriends from './friend/MyFriends';
+import EmailDetail from './pages/EmailDetail';
 class App extends Component {
 
 
@@ -40,7 +42,8 @@ class App extends Component {
           <Route exact path="/friendPage/:uid" component={FriendPage} />
           <Route exact path="/searchPage/:search" component={SearchPage} />
           <Route exact path="/uploadImg" component={UploadImg} />
-          
+          <Route exact path="/emails" component={EmailPage} />
+          <Route exact path="/emailDetail/:to" component={EmailDetail}/>
           <Route component={NotFound}/>
         </Switch>
       </div>
@@ -59,7 +62,9 @@ export default  compose (
       if(auth.isEmpty)
       return[]
       else
-      return[{collection:"profiles",storeAs:"profile" ,doc:auth.uid},
-             {collection:"friends",doc:auth.uid,storeAs: 'myFriends'}]
+      return[{collection:"profiles",doc:auth.uid,storeAs:"profile" },
+             {collection:"friends",doc:auth.uid,storeAs: 'myFriends'},
+             {collection:"email",doc:auth.uid,storeAs: 'myMail',
+              }]
   })
   )(App);

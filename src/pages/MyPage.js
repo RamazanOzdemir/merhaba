@@ -3,7 +3,6 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {firestoreConnect} from "react-redux-firebase";
 import {Link} from "react-router-dom";
-import {getProfile,getImages,getMyWall} from "../store/actions";
 import Profile from "../layout/Profile";
 import ImageCard from "../layout/ImageCard";
 import  M from "materialize-css";
@@ -87,14 +86,9 @@ const mapStateToProps = state =>{
     myWall : db.ordered.Wall?db.ordered.Wall:[],
   
 }}
-const mapDispatchToProps = dispatch =>({
-    getImages : uid => dispatch(getImages(uid)),
-    getProfile : uid => dispatch(getProfile(uid)),
-    getMyWall : uid => dispatch(getMyWall(uid))
 
-});
 export default compose(
-  connect(mapStateToProps,mapDispatchToProps),
+  connect(mapStateToProps),
   firestoreConnect(props=>{
     const {uid} = props
     return [{collection:"profiles" ,doc:uid,storeAs:"profile"},

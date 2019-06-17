@@ -89,7 +89,7 @@ class ImageCard extends Component {
 
 const mapStateToProps = state =>({
   auth : state.firebase.auth,
-  profile : state.profile
+  profile : state.firestore.data.profile?state.firestore.data.profile:{firstName:" ",lastName:" "}
 });
 const mapDispatchToProps = dispatch =>({
   addLike : (uid,newLikeCount) => dispatch(addLike(uid,newLikeCount)),

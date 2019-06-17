@@ -14,21 +14,15 @@ const Navbar = props=>  {
         side =emailVerified?<a href="#/" data-target="slide-out" className="left sidenav-trigger" style={{marginLeft:"0px"}}><i className="material-icons">menu</i></a>:null;
 
   return (
-  
-   
+   <div className="navbar-fixed">
     <nav className="nav-wrapper green accent-3">
       <div className="container">
-       
        <Link to ="/home"className="left brand-logo" style={{marginLeft:"45px"}}><img src="img/merhaba.png" alt="M"style={{height:"7vh",width:"40px",marginTop:"10px"}}/></Link>
         {side}   
-       {links}
-
-       
-   
-
+        {links}
       </div>
     </nav>
-    
+   </div> 
   )
 }
 

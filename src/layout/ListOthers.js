@@ -15,7 +15,7 @@ function ListOthers(props) {
     <ul className="collection with-header">        
         <li className="collection-header"><h6>Diğerleri : </h6></li>  
         {
-            users ?
+            users.length>0?
             users.map(user=>(
             user?
             <li className="collection-item" key={user[0]+"list-item"}>

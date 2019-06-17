@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {setImages,getImages} from "../store/actions";
 import {Redirect} from "react-router-dom";
 import  M from "materialize-css";
-import Images from './Images';
+import Images from '../layout/Images';
 
 
 class UploadImg extends Component {

@@ -5,3 +5,4 @@ export * from "./imageAction";
 export * from "./friendsAction";
 export * from "./myWallAction";
 export * from "./wallAction";
+export * from "./mailAction";

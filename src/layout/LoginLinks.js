@@ -6,6 +6,7 @@ import {firestoreConnect} from "react-redux-firebase"
 import {logOut,setProfile,requestFriends,cancelFriends,getWall} from "../store/actions"
 import M from "materialize-css";
 import RequestList from './RequestList';
+import { isArray } from 'util';
 
 
 class LoginLinks extends Component {
@@ -20,18 +21,30 @@ class LoginLinks extends Component {
   }
 
   render(){
-    const {friends,requestFriends,cancelFriends,my,avatar} = this.props;
-    const myFriends = friends ? Object.entries(friends) : [];
+    const {friends,requestFriends,cancelFriends,my,avatar,myMail} = this.props;
+    let myFriends = friends ? Object.entries(friends[0]?friends[0]:{}) : [];
+    myFriends.shift();
     const incoming = myFriends.filter(friend=>friend[1].friend==="incoming");
     const outgoing = myFriends.filter(friend=>friend[1].friend==="outgoing");
     const incomingLength = incoming.length;
+    let count=0;
+    let mail = myMail?Object.entries(myMail[0]?myMail[0]:{}):[];        
+    mail.forEach(element=>{
+      if(isArray(element[1]))
+      element[1].forEach(message=>{
+        if(!message.isRead){
+           count++;
+        }
+         
+      })
+    })
   return (
          <ul className="right" >
           <li className="hide-on-med-and-down handWrite"><NavLink to="/home">Ana Sayfa</NavLink></li>
           <li className="hide-on-med-and-down handWrite"><NavLink to="/">Benim Sayfam</NavLink></li>
           <li className="hide-on-med-and-down handWrite"><NavLink to="/uploadImg">Resimlerim</NavLink></li>
           <li className="hide-on-med-and-down handWrite"><NavLink to="/myFriends">Arkadaşlarım</NavLink></li>
-          <li><NavLink to="/home"><i className="material-icons">email</i></NavLink></li>
+          <li><NavLink to="/emails"><i className="material-icons">email</i></NavLink></li>
           <li >{incomingLength?<span className=" badge red white-text circle ">{incomingLength}</span>:null}
           <a href="#!"className="dropdown-trigger" data-target='friendship'><i className="material-icons">group_add</i></a>
           </li>
@@ -74,17 +87,16 @@ class LoginLinks extends Component {
 
 
 const mapStateToProps = state => {
-  const uid =state.firebase.auth.uid;
-
-  
+  let uid =state.firebase.auth.uid;
+  let friends = state.firestore.ordered.myFriends
   let my=state.firestore.data.profile;
       my=[uid,my];
-  
   return{
-  auth : state.firebase.auth,
   my ,
-  friends : state.firestore.data.myFriends ,
-  uid
+  friends,
+  uid,
+  myMail : state.firestore.ordered.myMail
+
 }};
 
 const mapDispatchToProps = dispatch => ({
